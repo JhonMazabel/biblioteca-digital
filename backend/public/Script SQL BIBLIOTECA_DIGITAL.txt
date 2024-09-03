@@ -1,0 +1,66 @@
+-- Crear la base de datos
+CREATE DATABASE BibliotecaDigital;
+USE BibliotecaDigital;
+
+-- Tabla de Roles
+CREATE TABLE Roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- Tabla de Usuarios
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role_id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    date_joined DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME,
+    FOREIGN KEY (role_id) REFERENCES Roles(id)
+);
+
+-- Tabla de Libros
+CREATE TABLE Books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    genre VARCHAR(50),
+    publication_year YEAR,
+    isbn VARCHAR(13) UNIQUE,
+    type ENUM('Book', 'Magazine') NOT NULL
+);
+
+-- Tabla de Préstamos
+CREATE TABLE Loans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    loan_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    return_date DATETIME,
+    status ENUM('On Loan', 'Returned') DEFAULT 'On Loan',
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES Books(id) ON DELETE CASCADE
+);
+
+-- Tabla de Reseñas
+CREATE TABLE Reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    review_text TEXT,
+    review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES Books(id) ON DELETE CASCADE
+);
+
+-- Tabla de Preferencias de Usuario
+CREATE TABLE UserPreferences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    preference VARCHAR(100),
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
