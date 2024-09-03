@@ -1,0 +1,27 @@
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.book-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.book-card {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+}

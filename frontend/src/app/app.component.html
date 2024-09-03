@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Biblioteca Digital</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/books">Lista de Libros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">Sobre Nosotros</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/collection">Colección</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/loans">Mis Préstamos</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/register">Registrarse</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contacto</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ authService.getUserName() || 'Usuario' }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/change-password">Cambiar Contraseña</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Cerrar Sesión</a></li>
+          </ul>
+        </li>
+        
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<div class="header-banner py-5 text-white text-center bg-primary">
+  <div class="overlay"></div> <!-- Añade esta línea para el overlay -->
+  <h2>Bienvenido a la Biblioteca Digital</h2>
+  <p class="lead">Explora nuestra colección de libros electrónicos, revistas y otros recursos digitales. Nuestra misión es ofrecerte un acceso fácil y rápido a una amplia gama de conocimiento.</p>
+  <div class="buttons">
+    <a routerLink="/books" class="btn btn-light m-2">Explorar Libros</a>
+    <a routerLink="/contact" class="btn btn-secondary m-2">Contáctanos</a>
+  </div>
+</div>
+
+
+
+<!-- Contenido Principal -->
+<div class="container mt-5">
+  <router-outlet></router-outlet>
+
+</div>

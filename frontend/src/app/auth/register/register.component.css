@@ -1,0 +1,64 @@
+/* Estilo del contenedor del formulario */
+.register-container {
+  max-width: 400px;
+  margin: 50px auto; /* Centra el formulario horizontalmente */
+  padding: 40px;
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo de los elementos del formulario */
+.form-group {
+  margin-bottom: 20px; /* Espaciado entre campos */
+}
+
+/* Estilo de las etiquetas */
+.form-group label {
+
+  display: block;
+  margin-bottom: 5px; /* Espaciado entre la etiqueta y el campo */
+}
+
+/* Estilo de los campos de entrada */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #ced4da; /* Color del borde */
+  background-color: #f9f9f9; /* Color de fondo */
+}
+
+/* Estilo de los campos de entrada cuando están activos */
+.form-control:focus {
+  border-color: #6c757d; /* Color del borde cuando está activo */
+  background-color: #ffffff; /* Fondo blanco cuando está activo */
+  outline: none; /* Sin contorno */
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25); /* Sombra cuando está activo */
+}
+
+/* Estilo del botón */
+.btn-primary {
+  width: 100%; /* Botón de ancho completo */
+  padding: 10px;
+  background-color: #8F141B; /* Color de fondo del botón */
+  color: #ffffff; /* Color del texto */
+  font-size: 18px;
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de puntero al pasar por encima */
+  transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+/* Estilo del botón cuando se pasa el ratón por encima */
+.btn-primary:hover {
+  background-color: #5a6268; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo de mensajes de error */
+.text-danger {
+  color: #dc3545; /* Color rojo para mensajes de error */
+  font-size: 14px;
+  margin-top: 5px; /* Espaciado superior */
+}

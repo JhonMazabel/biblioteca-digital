@@ -1,0 +1,101 @@
+<div class="container">
+  <h2>Lista de Libros</h2>
+  <div class="book-cards">
+    <mat-card *ngFor="let book of books" class="book-card">
+      <mat-card-header>
+        <mat-card-title>{{ book.title }}</mat-card-title>
+        <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Género: {{ book.genre }}</p>
+        <p>Año de Publicación: {{ book.publication_year }}</p>
+        <p>ISBN: {{ book.isbn }}</p>
+        <!-- Mostrar el nombre del tipo basado en el id_type -->
+        <p>Tipo: {{ getCollectionTypeName(book.id_type) }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="editBook(book)">Editar</button>
+        <button mat-button color="warn" (click)="deleteBook(book.id)">Eliminar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <h3>Agregar Nuevo Libro</h3>
+  <form (ngSubmit)="addBook()" class="book-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="newBook.title" name="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Autor</mat-label>
+      <input matInput [(ngModel)]="newBook.author" name="author" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Género</mat-label>
+      <input matInput [(ngModel)]="newBook.genre" name="genre" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Año de Publicación</mat-label>
+      <input matInput type="number" [(ngModel)]="newBook.publication_year" name="publication_year" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>ISBN</mat-label>
+      <input matInput [(ngModel)]="newBook.isbn" name="isbn" required>
+    </mat-form-field>
+
+    <!-- Cambiar la selección a id_type -->
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo</mat-label>
+      <mat-select [(ngModel)]="newBook.id_type" name="id_type" required>
+        <mat-option *ngFor="let type of collectionTypes" [value]="type.id">{{ type.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Agregar Libro</button>
+  </form>
+
+  <div *ngIf="editingBook">
+    <h3>Editar Libro</h3>
+    <form (ngSubmit)="updateBook()" class="book-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Título</mat-label>
+        <input matInput [(ngModel)]="editingBook.title" name="editTitle" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Autor</mat-label>
+        <input matInput [(ngModel)]="editingBook.author" name="editAuthor" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Género</mat-label>
+        <input matInput [(ngModel)]="editingBook.genre" name="editGenre" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Año de Publicación</mat-label>
+        <input matInput type="number" [(ngModel)]="editingBook.publication_year" name="editPublicationYear" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>ISBN</mat-label>
+        <input matInput [(ngModel)]="editingBook.isbn" name="editIsbn" required>
+      </mat-form-field>
+
+      <!-- Cambiar la selección a id_type para edición -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo</mat-label>
+        <mat-select [(ngModel)]="editingBook.id_type" name="editType" required>
+          <mat-option *ngFor="let type of collectionTypes" [value]="type.id">{{ type.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" type="submit">Actualizar Libro</button>
+      <button mat-button type="button" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  </div>
+</div>
