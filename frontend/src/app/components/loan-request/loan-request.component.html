@@ -1,0 +1,33 @@
+<!-- src/app/components/loan-request/loan-request.component.html -->
+<div class="loan-request-container">
+  <h2>Libros Disponibles</h2>
+  
+  <div class="book-cards">
+    <mat-card class="book-card" *ngFor="let book of books">
+      <mat-card-title>{{ book.title }}</mat-card-title>
+      <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+      <p><strong>Género:</strong> {{ book.genre }}</p>
+      <p><strong>Año de Publicación:</strong> {{ book.publication_year }}</p>
+      
+      <mat-chip-list>
+        <mat-chip [color]="book.status === 'On Loan' ? 'warn' : 'primary'">
+          {{ book.status === 'On Loan' ? 'Prestado' : 'Disponible' }}
+        </mat-chip>
+      </mat-chip-list>
+      
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="requestLoan(book)" 
+                [disabled]="book.status === 'On Loan'">
+          {{ book.status === 'On Loan' ? 'No Disponible' : 'Solicitar Préstamo' }}
+        </button>
+        <button mat-raised-button color="accent" (click)="editLoan(book)" 
+                [disabled]="book.status !== 'On Loan'">
+          Editar Préstamo
+        </button>
+        <button mat-raised-button color="warn" (click)="deleteLoan(book.id, book)" *ngIf="book.status === 'On Loan'">
+          Eliminar Préstamo
+      </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

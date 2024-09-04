@@ -1,0 +1,44 @@
+<h2 mat-dialog-title class="dialog-title">{{ mode === 'add' ? 'Agregar Usuario' : 'Editar Usuario' }}</h2>
+<form (ngSubmit)="onSave()" class="user-form">
+  <div class="form-grid">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput [(ngModel)]="userData.username" name="username" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput [(ngModel)]="userData.email" name="email" required type="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="userData.first_name" name="first_name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Apellido</mat-label>
+      <input matInput [(ngModel)]="userData.last_name" name="last_name" required>
+    </mat-form-field>
+
+    <!-- Campo para la contraseña, solo visible en el modo 'add' -->
+    <mat-form-field appearance="fill" class="form-field" *ngIf="mode === 'add'">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [(ngModel)]="userData.password" name="password" required type="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Rol</mat-label>
+      <mat-select [(ngModel)]="userData.role_id" name="role_id" required>
+        <mat-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="button-container">
+    <button mat-raised-button class="primary-button" type="submit">
+      {{ mode === 'add' ? 'Agregar' : 'Actualizar' }}
+    </button>
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

@@ -28,6 +28,7 @@ if (isset($uri[1])) {
                 include_once 'controllers/CollectionTypeController.php';
             }
             break;
+        
         case 'reviews':
             include_once 'controllers/ReviewController.php';
             break;

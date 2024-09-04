@@ -1,27 +1,73 @@
+/* Contenedor principal */
 .container {
   width: 80%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.book-cards {
+/* Estilo de la barra de búsqueda y el botón */
+.search-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
   justify-content: center;
 }
 
-.book-card {
-  width: 300px;
-  margin-bottom: 20px;
-}
-
-.book-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.mat-form-field {
+/* Estilo para las tarjetas de libros */
+.book-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 20px;
+  justify-items: center;
   width: 100%;
+}
+
+/* Estilo individual para cada tarjeta */
+.book-card {
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del botón de agregar libro */
+.add-book-button {
+  background-color: brown !important; 
+  color: white !important;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.add-book-button:hover {
+  background-color: #a52a2a !important; /* Un tono más oscuro de marrón */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividad para pantallas más pequeñas */
+@media (max-width: 992px) {
+  .book-cards {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas para pantallas medianas */
+  }
+}
+
+@media (max-width: 576px) {
+  .book-cards {
+    grid-template-columns: 1fr; /* Una columna para pantallas pequeñas */
+  }
+
+  .add-book-button {
+    width: 100%; /* Botón de ancho completo en pantallas pequeñas */
+  }
 }

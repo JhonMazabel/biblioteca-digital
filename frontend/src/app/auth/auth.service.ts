@@ -22,6 +22,7 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login.php`, { email, password }).pipe(
       tap(response => {
         if (response.message === 'Inicio de sesión exitoso') {
+          localStorage.setItem('userId', response.user.id);
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('userRole', response.user.role_id.toString());
           localStorage.setItem('userName', response.user.first_name); 
@@ -43,20 +44,23 @@ export class AuthService {
     );
   }
 
-
   logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
-    localStorage.removeItem('userEmail'); // Añadido para asegurar que se elimine también el email del usuario
+    localStorage.removeItem('userEmail');
   }
 
   isAuthenticated(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
   }
 
+  getUserId(): number | null {
+    const userId = localStorage.getItem('userId');
+    return userId ? parseInt(userId, 10) : null;
+  }
   getUserName(): string | null {
-    return localStorage.getItem('userName'); // Obtener el nombre del usuario del Local Storage
+    return localStorage.getItem('userName');
   }
 
   getUserRole(): string | null {
@@ -64,6 +68,14 @@ export class AuthService {
   }
 
   getUserEmail(): string {
-    return localStorage.getItem('userEmail') || ''; // Asegúrate de que este método obtenga el email del localStorage
+    return localStorage.getItem('userEmail') || '';
+  }
+
+  isAdmin(): boolean {
+    return this.getUserRole() === '1'; // Supongamos que el rol de administrador tiene el ID '1'
+  }
+  getCurrentUserId(): number {
+    const userId = localStorage.getItem('userId'); // Asumiendo que guardaste el ID del usuario al momento del login
+    return userId ? parseInt(userId, 10) : 0; // Devuelve 0 si no está definido
   }
 }

@@ -1,0 +1,28 @@
+/* src/app/components/loan-request/loan-request.component.css */
+
+.loan-request-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.book-card {
+  width: 250px;
+  text-align: center;
+}
+
+.mat-chip {
+  margin: 10px 0;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}

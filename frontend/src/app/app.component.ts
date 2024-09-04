@@ -21,4 +21,8 @@ export class AppComponent {
     this.authService.logout();
     this.router.navigate(['/login']); // Redirige a la página de inicio de sesión después de cerrar sesión
   }
+  shouldShowBanner(): boolean {
+    const currentRoute = this.router.url;
+    return currentRoute === '/' || currentRoute === '/about' || currentRoute === '/books';
+  }
 }

@@ -1,0 +1,43 @@
+<h2 mat-dialog-title class="dialog-title">{{ mode === 'add' ? 'Agregar Nuevo Libro' : 'Editar Libro' }}</h2>
+<form (ngSubmit)="onSave()" class="book-form">
+  <div class="form-grid">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="bookData.title" name="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Autor</mat-label>
+      <input matInput [(ngModel)]="bookData.author" name="author" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Género</mat-label>
+      <input matInput [(ngModel)]="bookData.genre" name="genre" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Año de Publicación</mat-label>
+      <input matInput type="number" [(ngModel)]="bookData.publication_year" name="publication_year" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>ISBN</mat-label>
+      <input matInput [(ngModel)]="bookData.isbn" name="isbn" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Tipo</mat-label>
+      <mat-select [(ngModel)]="bookData.id_type" name="id_type" required>
+        <mat-option *ngFor="let type of collectionTypes" [value]="type.id">{{ type.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="button-container">
+    <button mat-raised-button class="primary-button" type="submit">
+      {{ mode === 'add' ? 'Agregar' : 'Actualizar' }}
+    </button>
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

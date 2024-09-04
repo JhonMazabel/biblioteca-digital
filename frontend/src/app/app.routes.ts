@@ -1,23 +1,19 @@
-// src/app/app.routes.ts
-
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { AboutComponent } from './components/about/about.component';
+import { LoanRequestComponent } from './components/loan-request/loan-request.component';
 import { BookListComponent } from './components/book-list/book-list.component';
-import { CollectionComponent } from './components/collection/collection.component';
-import { LoansComponent } from './components/loans/loans.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
-
+import { UserListComponent } from './components/user-list/user-list.component';
+import { HomeComponent } from './components/home/home.component';
 export const appRoutes: Routes = [
-
-  { path: 'login', component: LoginComponent }, // Sin guard
-
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'about', component: AboutComponent },
+  { path: 'loan-request', component: LoanRequestComponent },
   { path: 'books', component: BookListComponent },
-  { path: 'collection', component: CollectionComponent },
-  { path: 'loans', component: LoansComponent },
-  { path: 'change-password', component: ChangePasswordComponent }, // Nueva ruta
-  { path: '', redirectTo: '/books', pathMatch: 'full' }
+  { path: 'users', component: UserListComponent }, // Ruta para la vista de usuarios
+  { path: 'change-password', component: ChangePasswordComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
+  // Agrega otras rutas según sea necesario
 ];

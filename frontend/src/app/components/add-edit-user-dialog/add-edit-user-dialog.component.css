@@ -1,0 +1,56 @@
+.dialog-title {
+    padding-top: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .user-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  .primary-button {
+    background-color: #8f141b !important; /* Usa !important para sobrescribir el estilo de Angular Material */
+    color: #fff !important; /* Forza el color del texto a blanco */
+  }
+  
+  .center-title {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .user-form {
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  

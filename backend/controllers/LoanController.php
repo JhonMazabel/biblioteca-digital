@@ -1,5 +1,8 @@
 <?php
 // controllers/LoanController.php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 include_once '../config/db.php';
 include_once '../models/Loan.php';
@@ -13,6 +16,26 @@ class LoanController {
         $this->db = $database->getConnection();
         $this->loan = new Loan($this->db);
     }
+
+
+
+    // En tu controlador o en el método que obtiene los libros:
+public function getBooksWithStatus() {
+    $books = $this->getAllBooks(); // Obtiene todos los libros desde la base de datos.
+    $loans = $this->getAllLoans(); // Obtiene todos los préstamos desde la base de datos.
+    
+    foreach ($books as &$book) {
+        $book['status'] = 'Disponible'; // Por defecto, todos los libros son "Disponibles".
+        foreach ($loans as $loan) {
+            if ($loan['book_id'] == $book['id'] && $loan['status'] == 'On Loan') {
+                $book['status'] = 'On Loan'; // Si el libro está prestado, cambiamos el estado.
+                break;
+            }
+        }
+    }
+    
+    return $books; // Retorna los libros con el estado actualizado.
+}
 
     public function getLoans() {
         $stmt = $this->loan->read();
@@ -45,6 +68,18 @@ class LoanController {
     }
 
     public function requestLoan($data) {
+        if (empty($data['user_id']) || empty($data['book_id']) || empty($data['loan_date']) || empty($data['return_date']) || empty($data['status'])) {
+            http_response_code(400);
+            echo json_encode(array("message" => "Datos incompletos para solicitar un préstamo."));
+            return;
+        }
+
+        if ($this->loan->isBookOnLoan($data['book_id'])) {
+            http_response_code(409);
+            echo json_encode(array("message" => "Este libro ya está prestado."));
+            return;
+        }
+
         if ($this->loan->create($data)) {
             http_response_code(201);
             echo json_encode(array("message" => "Préstamo solicitado exitosamente."));
@@ -73,23 +108,5 @@ class LoanController {
             echo json_encode(array("message" => "Error al eliminar préstamo."));
         }
     }
-
-    // Otros métodos de gestión de préstamos pueden añadirse aquí...
-}
-
-// Inicialización del controlador y manejo de las solicitudes
-$loanController = new LoanController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $loanController->getLoans();
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
-    $loanController->requestLoan($data);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    parse_str(file_get_contents("php://input"), $put_vars);
-    $loanController->updateLoan($put_vars['id'], $put_vars);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    parse_str(file_get_contents("php://input"), $delete_vars);
-    $loanController->deleteLoan($delete_vars['id']);
 }
 ?>

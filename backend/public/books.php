@@ -51,18 +51,28 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($data['title'], $data['author'], $data['genre'], $data['publication_year'], $data['isbn'], $data['id_type'])) {
-            if ($book->create($data)) {
-                http_response_code(201);
-                echo json_encode(array("message" => "Libro creado exitosamente."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Error al crear el libro."));
-            }
-        } else {
-            http_response_code(400);
-            echo json_encode(array("message" => "Datos incompletos para crear un libro."));
-        }
+        
+            try {
+                if ($book->create($_POST)) {
+                    http_response_code(201);
+                    echo json_encode(array("message" => "Libro creado exitosamente."));
+                } else {
+                    // Verifica si el error fue por duplicación de ISBN
+                    if ($stmt->errorInfo()[1] == 1062) {
+                        http_response_code(400);
+                        echo json_encode(array("message" => "Error: El ISBN ya existe."));
+                    } else {
+                        http_response_code(503);
+                        echo json_encode(array("message" => "Error al crear el libro."));
+                    }
+                }
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo json_encode(array("message" => "Error en el servidor: " . $e->getMessage()));
+    }
+           
+            
+        
         break;
 
         case 'PUT':
@@ -85,21 +95,22 @@ switch ($_SERVER['REQUEST_METHOD']) {
             break;
         
 
-    case 'DELETE':
-        parse_str(file_get_contents("php://input"), $delete_vars);
-        if (isset($delete_vars['id'])) {
-            if ($book->delete($delete_vars['id'])) {
-                http_response_code(200);
-                echo json_encode(array("message" => "Libro eliminado exitosamente."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Error al eliminar el libro."));
-            }
-        } else {
-            http_response_code(400);
-            echo json_encode(array("message" => "ID de libro no proporcionado para eliminación."));
-        }
-        break;
+            case 'DELETE':
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    if ($book->delete($id)) {
+                        http_response_code(200);
+                        echo json_encode(array("message" => "Libro eliminado exitosamente."));
+                    } else {
+                        http_response_code(503);
+                        echo json_encode(array("message" => "Error al eliminar el libro."));
+                    }
+                } else {
+                    http_response_code(400);
+                    echo json_encode(array("message" => "ID de libro no proporcionado para eliminación."));
+                }
+                break;
+            
 
     default:
         http_response_code(405);

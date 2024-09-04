@@ -1,0 +1,24 @@
+<!-- src/app/components/edit-loan-dialog/edit-loan-dialog.component.html -->
+<h2 mat-dialog-title>Editar Préstamo</h2>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha de Préstamo</mat-label>
+    <input matInput [(ngModel)]="loan.loan_date" type="date">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha de Devolución</mat-label>
+    <input matInput [(ngModel)]="loan.return_date" type="date">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Estado</mat-label>
+    <input matInput [(ngModel)]="loan.status">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onSave()">Guardar</button>
+</div>

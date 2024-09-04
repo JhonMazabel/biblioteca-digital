@@ -1,0 +1,57 @@
+/* Estilos para el contenedor principal */
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Estilo para el encabezado de la tabla */
+.table-dark th {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+}
+
+/* Estilo para las celdas de la tabla */
+.table td, .table th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Botones de acción */
+.btn-warning, .btn-danger {
+  width: 80px;
+}
+
+/* Botón de agregar usuario */
+.input-group .btn-primary {
+  margin-left: 10px;
+}
+
+/* Estilo para las filas al pasar el ratón */
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Espaciado entre botones */
+.btn-sm.me-2 {
+  margin-right: 5px;
+}
+
+/* Estilos para los botones de acción */
+.edit-button {
+  background-color: #FFC107; /* Color amarillo */
+  color: #000;
+  border-color: #FFC107; /* Border color to match the background */
+}
+
+.delete-button {
+  background-color: #8f141b; /* Color rojo oscuro como el botón de 'Agregar Usuario' */
+  color: #fff;
+  border-color: #8f141b; /* Border color to match the background */
+}
+
+.add-user-button {
+  background-color: #8f141b; /* Color rojo oscuro */
+  color: #fff;
+  border-color: #8f141b; /* Border color to match the background */
+}
